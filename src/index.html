@@ -95,13 +95,97 @@
               <h3 class="text-lg font-semibold text-gray-800 mb-2">Admin Department</h3>
               <p class="summary-count text-gray-600 font-semibold text-2xl">0</p>
             </div>
-             
           </div>
         </div>
-      </main>
-   
-      <!-- //Add Employee details forms -->
+
+    <!-- //searchbar -->
+ <section class="filter-section p-3 px-0">
+    <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Search by name or department...">
+            </div>
+            <div class="filter-dropdown">
+                <select id="departmentFilter">
+                    <option value="">All Departments</option>
+                    <option value="HR">HR</option>
+                    <option value="IT">IT</option>
+                    <option value="Finance">Finance</option>
+                    <option value="Admin">Admin</option>
+                </select>
+            </div>
+        </section>
+
+        <section class="employee-list" id="employeeList">
+        </section>
     </div>
+    </main>
+    </div>
+ 
+     <div class="modal" id="employeeModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Add Employee</h2>
+                <button class="close-btn" id="closeModal">&times;</button>
+            </div>
+            <form id= "employeeForm">
+                <input type="hidden" id="employeeId">
+
+                <div class="form-group">
+                    <label for="employeeName">Employee Name *</label>
+                    <input type="text" id="employeeName" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="department">Department *</label>
+                    <select id="department" required>
+                        <option value="">Select Department</option>
+                        <option value="HR">HR</option>
+                        <option value="IT">IT</option>
+                        <option value="Finance">Finance</option>
+                        <option value="Admin">Admin</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number *</label>
+                    <input type="tel" id="phone" pattern="[0-9]{10}" maxlength="10" required>
+                    <small>Enter 10 digit phone number</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="designation">Designation *</label>
+                    <input type="text" id="designation" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="joiningDate">Joining Date *</label>
+                    <input type="date" id="joiningDate" required>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" id="cancelBtn">Cancel</button>
+                    <button type="submit" class="btn-primary" id="submitBtn">Save Employee</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     <script>
       const menuBtn = document.getElementById('menuBtn');
