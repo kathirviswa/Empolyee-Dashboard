@@ -81,24 +81,24 @@
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 px-0 pt-4">
             <div class="summary-card">
               <h3 class="text-lg font-semibold text-gray-800 mb-2">HR Department</h3>
-              <p class="summary-count text-gray-600 font-semibold text-2xl">0</p>
+              <p Id="hrCount"class="summary-count text-gray-600 font-semibold text-2xl">0</p>
             </div>
             <div class="summary-card bg-white rounded-lg shadow p-6">
               <h3 class="  text-lg font-semibold text-gray-800 mb-2"> IT Department</h3>
-              <p class="summary-count text-gray-600 font-semibold text-2xl">0</p>
+              <p id="itCount" class="summary-count text-gray-600 font-semibold text-2xl">0</p>
             </div>
             <div class="summary-card bg-white rounded-lg shadow p-6">
               <h3 class="text-lg font-semibold text-gray-800 mb-2">finance Department</h3>
-              <p class="summary-count text-gray-600 font-semibold text-2xl">0</p>
+              <p id="financeCount" class="summary-count text-gray-600 font-semibold text-2xl">0</p>
             </div>
              <div class="summary-card bg-white rounded-lg shadow p-6">
               <h3 class="text-lg font-semibold text-gray-800 mb-2">Admin Department</h3>
-              <p class="summary-count text-gray-600 font-semibold text-2xl">0</p>
+              <p d="adminCount" class="summary-count text-gray-600 font-semibold text-2xl">0</p>
             </div>
           </div>
         </div>
 
-    <!-- //searchbar -->
+    <!-- //searchbar + filter -->
  <section class="filter-section p-3 px-0">
     <div class="search-bar">
         <input type="text" id="searchInput" placeholder="Search by name or department...">
@@ -114,21 +114,22 @@
             </div>
         </section>
 
+      <!-- Employee List -->
         <section class="employee-list" id="employeeList">
         </section>
     </div>
     </main>
     </div>
- 
+ <!-- Model popup -->
      <div class="modal" id="employeeModal">
         <div class="modal-content">
             <div class="modal-header">
                 <h2 id="modalTitle">Add Employee</h2>
                 <button class="close-btn" id="closeModal">&times;</button>
             </div>
-            <form id= "employeeForm">
+            <form id= "employeeForm" class="space-y-3">
                 <input type="hidden" id="employeeId">
-
+                <!-- form section start -->
                 <div class="form-group">
                     <label for="employeeName">Employee Name *</label>
                     <input type="text" id="employeeName" required>
@@ -175,7 +176,7 @@
     </div>
 
  
-     
+     <!-- side navbar script -->
     <script>
       const menuBtn = document.getElementById('menuBtn');
       const sidebar = document.getElementById('sidebar');

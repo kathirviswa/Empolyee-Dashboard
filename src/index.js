@@ -1,237 +1,155 @@
 let employees = [];
-let editingEmployeeId = null;
+    let editingEmployeeId = null;
 
-const elements = {
-    modal: document.getElementById('employeeModal'),
-    form: document.getElementById('employeeForm'),
-    employeeList: document.getElementById('employeeList'),
-    searchInput: document.getElementById('searchInput'),
-    departmentFilter: document.getElementById('departmentFilter'),
-    addEmployeeBtn: document.getElementById('addEmployeeBtn'),
-    closeModal: document.getElementById('closeModal'),
-    cancelBtn: document.getElementById('cancelBtn'),
-    modalTitle: document.getElementById('modalTitle'),
-    submitBtn: document.getElementById('submitBtn'),
-    employeeId: document.getElementById('employeeId'),
-    employeeName: document.getElementById('employeeName'),
-    department: document.getElementById('department'),
-    email: document.getElementById('email'),
-    phone: document.getElementById('phone'),
-    designation: document.getElementById('designation'),
-    joiningDate: document.getElementById('joiningDate')
-};
+      const elements = {
+        modal: document.getElementById('employeeModal'),
+        form: document.getElementById('employeeForm'),
+        employeeList: document.getElementById('employeeList'),
+        searchInput: document.getElementById('searchInput'),
+        departmentFilter: document.getElementById('departmentFilter'),
+        addEmployeeBtn: document.getElementById('addEmployeeBtn'),
+        closeModal: document.getElementById('closeModal'),
+        cancelBtn: document.getElementById('cancelBtn'),
+        modalTitle: document.getElementById('modalTitle'),
+        submitBtn: document.getElementById('submitBtn'),
+        employeeName: document.getElementById('employeeName'),
+        department: document.getElementById('department'),
+        email: document.getElementById('email'),
+        phone: document.getElementById('phone'),
+        designation: document.getElementById('designation'),
+        joiningDate: document.getElementById('joiningDate')
+      };
+        /// save our employees to local storage 
+      function saveEmployees() {
+        localStorage.setItem('employees', JSON.stringify(employees));
+      }
 
-function loadEmployees() {
-    const stored = localStorage.getItem('employees');
-    if (stored) {
-        employees = JSON.parse(stored);
-    }
-}
+      function loadEmployees() {
+        employees = JSON.parse(localStorage.getItem('employees') || '[]');
+      }
 
-function saveEmployees() {
-    localStorage.setItem('employees', JSON.stringify(employees));
-}
+      function updateSummary() {
+        document.getElementById('hrCount').textContent = employees.filter(e => e.department === 'HR').length;
+        document.getElementById('itCount').textContent = employees.filter(e => e.department === 'IT').length;
+        document.getElementById('financeCount').textContent = employees.filter(e => e.department === 'Finance').length;
+        document.getElementById('adminCount').textContent = employees.filter(e => e.department === 'Admin').length;
+      }
 
-function updateSummary() {
-    const totalCount = employees.length;
-    const hrCount = employees.filter(emp => emp.department === 'HR').length;
-    const itCount = employees.filter(emp => emp.department === 'IT').length;
-    const financeCount = employees.filter(emp => emp.department === 'Finance').length;
-    const adminCount = employees.filter(emp => emp.department === 'Admin').length;
+      function renderEmployees() {
+        const searchTerm = elements.searchInput.value.toLowerCase();
+        const filterDept = elements.departmentFilter.value;
 
-    document.getElementById('totalCount').textContent = totalCount;
-    document.getElementById('hrCount').textContent = hrCount;
-    document.getElementById('itCount').textContent = itCount;
-    document.getElementById('financeCount').textContent = financeCount;
-    document.getElementById('adminCount').textContent = adminCount;
-}
-
-function getFilteredEmployees() {
-    const searchTerm = elements.searchInput.value.toLowerCase();
-    const departmentValue = elements.departmentFilter.value;
-
-    return employees.filter(emp => {
-        const matchesSearch =
+        const filtered = employees.filter(emp => {
+          const matchesSearch =
             emp.name.toLowerCase().includes(searchTerm) ||
             emp.department.toLowerCase().includes(searchTerm) ||
-            emp.designation.toLowerCase().includes(searchTerm) ||
             emp.email.toLowerCase().includes(searchTerm);
+          const matchesDept = !filterDept || emp.department === filterDept;
+          return matchesSearch && matchesDept;
+        });
 
-        const matchesDepartment =
-            !departmentValue || emp.department === departmentValue;
+        if (filtered.length === 0) {
+          elements.employeeList.innerHTML = '<p class="text-center text-gray-500 mt-6">No employees found.</p>';
+          return;
+        }
 
-        return matchesSearch && matchesDepartment;
-    });
-}
-
-function formatDate(dateString) {
-    const date = new Date(dateString);
-    const options = { year: 'numeric', month: 'short', day: 'numeric' };
-    return date.toLocaleDateString('en-US', options);
-}
-
-function getInitials(name) {
-    return name
-        .split(' ')
-        .map(word => word[0])
-        .join('')
-        .toUpperCase()
-        .substring(0, 2);
-}
-
-function getBadgeClass(department) {
-    const badges = {
-        'HR': 'badge-hr',
-        'IT': 'badge-it',
-        'Finance': 'badge-finance',
-        'Admin': 'badge-admin'
-    };
-    return badges[department] || 'badge-hr';
-}
-
-function renderEmployees() {
-    const filteredEmployees = getFilteredEmployees();
-
-    if (filteredEmployees.length === 0) {
-        elements.employeeList.innerHTML = `
-            <div class="empty-state">
-                <h3>No employees found</h3>
-                <p>Try adjusting your search or filters, or add a new employee.</p>
+        elements.employeeList.innerHTML = filtered.map(emp => `
+          <div class="bg-white rounded-xl shadow p-4">
+            <div class="flex justify-between items-center">
+              <div>
+                <h3 class="text-lg font-semibold">${emp.name}</h3>
+                <p class="text-md font-bold text-gray-600 mt-1 ">${emp.designation} (${emp.department})</p>
+              </div>
+              <div class="space-x-2">
+                <button onclick="editEmployee('${emp.id}')" class="px-3 py-1 text-sm bg-yellow-400 hover:bg-yellow-500 rounded">Edit</button>
+                <button onclick="deleteEmployee('${emp.id}')" class="px-3 py-1 text-sm bg-red-500 hover:bg-red-600 text-white rounded">Delete</button>
+              </div>
             </div>
-        `;
-        return;
-    }
+            <p class="mt-2 text-sm text-gray-500">📧 ${emp.email}</p>
+            <p class="text-md text-gray-500">📞 ${emp.phone}</p>
+            <p class="text-md text-gray-500">📅 ${emp.joiningDate}</p>
+          </div>
+        `).join('');
+      }
 
-    elements.employeeList.innerHTML = filteredEmployees.map(emp => `
-        <div class="employee-card">
-            <div class="employee-header">
-                <div class="employee-avatar">${getInitials(emp.name)}</div>
-                <div class="employee-info">
-                    <h3>${emp.name}</h3>
-                    <p class="employee-designation">${emp.designation}</p>
-                </div>
-            </div>
-            <div class="employee-details">
-                <div class="detail-row">
-                    <span class="detail-label">Department:</span>
-                    <span class="employee-badge ${getBadgeClass(emp.department)}">${emp.department}</span>
-                </div>
-                <div class="detail-row">
-                    <span class="detail-label">Email:</span>
-                    <span>${emp.email}</span>
-                </div>
-                <div class="detail-row">
-                    <span class="detail-label">Phone:</span>
-                    <span>${emp.phone}</span>
-                </div>
-                <div class="detail-row">
-                    <span class="detail-label">Joined:</span>
-                    <span>${formatDate(emp.joiningDate)}</span>
-                </div>
-            </div>
-            <div class="employee-actions">
-                <button class="btn-edit" onclick="editEmployee('${emp.id}')">Edit</button>
-                <button class="btn-delete" onclick="deleteEmployee('${emp.id}')">Delete</button>
-            </div>
-        </div>
-    `).join('');
-}
+      function openModal(edit = false) {
+        elements.modal.classList.remove('hidden');
+        elements.modal.classList.add('flex');
+        elements.modalTitle.textContent = edit ? 'Edit Employee' : 'Add Employee';
+        elements.submitBtn.textContent = edit ? 'Update' : 'Save';
+      }
 
-function openModal(isEdit = false) {
-    editingEmployeeId = null;
-    elements.modalTitle.textContent = isEdit ? 'Edit Employee' : 'Add Employee';
-    elements.submitBtn.textContent = isEdit ? 'Update Employee' : 'Save Employee';
-    elements.modal.classList.add('active');
-}
+      function closeModal() {
+        elements.modal.classList.add('hidden');
+        elements.form.reset();
+        editingEmployeeId = null;
+      }
 
-function closeModal() {
-    elements.modal.classList.remove('active');
-    elements.form.reset();
-    editingEmployeeId = null;
-}
-
-function addEmployee(employeeData) {
-    const newEmployee = {
-        id: Date.now().toString(),
-        ...employeeData
-    };
-    employees.push(newEmployee);
-    saveEmployees();
-    updateSummary();
-    renderEmployees();
-}
-
-function updateEmployee(id, employeeData) {
-    const index = employees.findIndex(emp => emp.id === id);
-    if (index !== -1) {
-        employees[index] = {
-            id,
-            ...employeeData
-        };
+      function addEmployee(data) {
+        employees.push({ id: Date.now().toString(), ...data });
         saveEmployees();
-        updateSummary();
         renderEmployees();
-    }
-}
-
-function editEmployee(id) {
-    const employee = employees.find(emp => emp.id === id);
-    if (employee) {
-        editingEmployeeId = id;
-        elements.employeeId.value = employee.id;
-        elements.employeeName.value = employee.name;
-        elements.department.value = employee.department;
-        elements.email.value = employee.email;
-        elements.phone.value = employee.phone;
-        elements.designation.value = employee.designation;
-        elements.joiningDate.value = employee.joiningDate;
-        openModal(true);
-    }
-}
-
-function deleteEmployee(id) {
-    if (confirm('Are you sure you want to delete this employee?')) {
-        employees = employees.filter(emp => emp.id !== id);
-        saveEmployees();
         updateSummary();
-        renderEmployees();
-    }
-}
-
-elements.addEmployeeBtn.addEventListener('click', () => openModal(false));
-elements.closeModal.addEventListener('click', closeModal);
-elements.cancelBtn.addEventListener('click', closeModal);
-
-elements.modal.addEventListener('click', (e) => {
-    if (e.target === elements.modal) {
         closeModal();
-    }
-});
+      }
 
-elements.form.addEventListener('submit', (e) => {
-    e.preventDefault();
+      function editEmployee(id) {
+        const emp = employees.find(e => e.id === id);
+        if (!emp) return;
+        editingEmployeeId = id;
+        elements.employeeName.value = emp.name;
+        elements.department.value = emp.department;
+        elements.email.value = emp.email;
+        elements.phone.value = emp.phone;
+        elements.designation.value = emp.designation;
+        elements.joiningDate.value = emp.joiningDate;
+        openModal(true);
+      }
 
-    const employeeData = {
-        name: elements.employeeName.value,
-        department: elements.department.value,
-        email: elements.email.value,
-        phone: elements.phone.value,
-        designation: elements.designation.value,
-        joiningDate: elements.joiningDate.value
-    };
+      function updateEmployee(data) {
+        const index = employees.findIndex(e => e.id === editingEmployeeId);
+        if (index !== -1) {
+          employees[index] = { id: editingEmployeeId, ...data };
+          saveEmployees();
+          renderEmployees();
+          updateSummary();
+          closeModal();
+        }
+      }
 
-    if (editingEmployeeId) {
-        updateEmployee(editingEmployeeId, employeeData);
-    } else {
-        addEmployee(employeeData);
-    }
+      function deleteEmployee(id) {
+        if (confirm('Delete this employee?')) {
+          employees = employees.filter(e => e.id !== id);
+          saveEmployees();
+          renderEmployees();
+          updateSummary();
+          
+        }
+      }
 
-    closeModal();
-});
+      // Events
+      elements.addEmployeeBtn.addEventListener('click', () => openModal());
+      elements.closeModal.addEventListener('click', closeModal);
+      elements.cancelBtn.addEventListener('click', closeModal);
+      elements.modal.addEventListener('click', e => { if (e.target === elements.modal) closeModal(); });
+      elements.form.addEventListener('submit', e => {
+        e.preventDefault();
+        const data = {
+          name: elements.employeeName.value,
+          department: elements.department.value,
+          email: elements.email.value,
+          phone: elements.phone.value,
+          designation: elements.designation.value,
+          joiningDate: elements.joiningDate.value
+        };
+        if (editingEmployeeId) updateEmployee(data);
+        else addEmployee(data);
+        closeModal();
+      });
+      elements.searchInput.addEventListener('input', renderEmployees);
+      elements.departmentFilter.addEventListener('change', renderEmployees);
 
-elements.searchInput.addEventListener('input', renderEmployees);
-elements.departmentFilter.addEventListener('change', renderEmployees);
-
-loadEmployees();
-updateSummary();
-renderEmployees();
+      // Initialize
+      loadEmployees();
+      renderEmployees();
+      updateSummary();
