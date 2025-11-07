@@ -19,8 +19,8 @@ let employees = [];
         designation: document.getElementById('designation'),
         joiningDate: document.getElementById('joiningDate')
       };
-        /// save our employees to local storage to store employee data 
-        //  to store employee data object to string
+    // save our employees to local storage to store employee data 
+    // to store employee data object to string
       function saveEmployees() {
         localStorage.setItem('employees', JSON.stringify(employees));
       }
