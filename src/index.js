@@ -144,7 +144,7 @@ let employees = [];
         if (editingEmployeeId) updateEmployee(data);
         else addEmployee(data);
          closeModal();
-        // elements.form.reset();
+         elements.form.reset();
       });
       elements.searchInput.addEventListener('input', renderEmployees);
       elements.departmentFilter.addEventListener('change', renderEmployees);
