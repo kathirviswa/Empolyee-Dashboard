@@ -10,8 +10,7 @@
   <body class="bg-gray-100">
     <div class="flex min-h-screen">
       <!-- Mobile Menu Button -->
-      <button
-        id="menuBtn"
+      <button id="menuBtn"
         class="lg:hidden fixed top-4 left-4 z-50 p-2 rounded-lg bg-white shadow-lg hover:bg-gray-50 transition-colors"
       >
         <svg id="menuIcon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -126,7 +125,8 @@
             <div class="modal-header">
                 <h2 id="modalTitle">Add Employee</h2>
                 <button class="close-btn" id="closeModal">&times;</button>
-            </div>
+             </div>
+            <!-- form sec -->
             <form id= "employeeForm" class="space-y-3">
                 <input type="hidden" id="employeeId">
                 <!-- form section start -->
@@ -198,8 +198,7 @@
           toggleSidebar();
         }
       });
-    </script>
-    
+    </script> 
     <script src="index.js"></script>
   </body>
 </html>

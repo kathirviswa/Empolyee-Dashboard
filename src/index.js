@@ -19,15 +19,16 @@ let employees = [];
         designation: document.getElementById('designation'),
         joiningDate: document.getElementById('joiningDate')
       };
-        /// save our employees to local storage 
+        /// save our employees to local storage to store employee data 
+        //  to store employee data object to string
       function saveEmployees() {
         localStorage.setItem('employees', JSON.stringify(employees));
       }
-
+   //  load employees to display string to object in JSON.parse method to use 
       function loadEmployees() {
         employees = JSON.parse(localStorage.getItem('employees') || '[]');
       }
-
+      // summary count update
       function updateSummary() {
         document.getElementById('hrCount').textContent = employees.filter(e => e.department === 'HR').length;
         document.getElementById('itCount').textContent = employees.filter(e => e.department === 'IT').length;
@@ -116,22 +117,20 @@ let employees = [];
           closeModal();
         }
       }
-
       function deleteEmployee(id) {
         if (confirm('Delete this employee?')) {
           employees = employees.filter(e => e.id !== id);
           saveEmployees();
           renderEmployees();
           updateSummary();
-          
         }
       }
-
       // Events
       elements.addEmployeeBtn.addEventListener('click', () => openModal());
       elements.closeModal.addEventListener('click', closeModal);
       elements.cancelBtn.addEventListener('click', closeModal);
       elements.modal.addEventListener('click', e => { if (e.target === elements.modal) closeModal(); });
+     
       elements.form.addEventListener('submit', e => {
         e.preventDefault();
         const data = {
@@ -144,7 +143,8 @@ let employees = [];
         };
         if (editingEmployeeId) updateEmployee(data);
         else addEmployee(data);
-        closeModal();
+         closeModal();
+        // elements.form.reset();
       });
       elements.searchInput.addEventListener('input', renderEmployees);
       elements.departmentFilter.addEventListener('change', renderEmployees);
