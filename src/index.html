@@ -41,8 +41,7 @@
           <nav class="flex-1 overflow-y-auto p-4">
             <ul class="space-y-2">
               <li>
-                <a href="#"
-                  class="flex items-center gap-3 px-4 py-3 text-gray-700 rounded-lg hover:bg-gray-100 transition-colors group"
+                <a href="#" class="flex items-center gap-3 px-4 py-3 text-gray-700 rounded-lg hover:bg-gray-100 transition-colors group"
                 >
                   <svg class="w-5 h-5 text-gray-500 group-hover:text-blue-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-3m0 0l7-4 7 4M5 9v10a1 1 0 001 1h12a1 1 0 001-1V9m-9 11l4-4m0 0l4 4m-4-4v4"></path>
@@ -64,7 +63,7 @@
             </ul>
           </nav>
       </aside>
-    <!-- // side navbar end -->
+    <!-- / side navbar end -->
 
       <!-- Main Content -->
       <main class="flex-1 p-8 lg:ml-0 pt-20 lg:pt-8">
@@ -132,7 +131,8 @@
                 <!-- form section start -->
                 <div class="form-group">
                     <label for="employeeName">Employee Name *</label>
-                    <input type="text" id="employeeName" required>
+                    <input type="text" id="employeeName" required    
+                    pattern="^[A-Za-z\s]+$" title="Name should only contain letters and spaces">
                 </div>
 
                 <div class="form-group">
@@ -176,6 +176,12 @@
     </div>
 
 
+
+
+
+
+
+    
      <!-- side navbar script -->
     <script>
       const menuBtn = document.getElementById('menuBtn');

@@ -19,7 +19,7 @@ let employees = [];
         designation: document.getElementById('designation'),
         joiningDate: document.getElementById('joiningDate')
       };
-    // save our employees to local storage to store employee data 
+    // save our employees to local storage to store employee data ..
     // to store employee data object to string
       function saveEmployees() {
         localStorage.setItem('employees', JSON.stringify(employees));
@@ -47,6 +47,7 @@ let employees = [];
             emp.email.toLowerCase().includes(searchTerm);
           const matchesDept = !filterDept || emp.department === filterDept;
           return matchesSearch && matchesDept;
+          
         });
 
         if (filtered.length === 0) {
@@ -149,7 +150,10 @@ let employees = [];
       elements.searchInput.addEventListener('input', renderEmployees);
       elements.departmentFilter.addEventListener('change', renderEmployees);
 
-      // Initialize
-      loadEmployees();
-      renderEmployees();
-      updateSummary();
+
+
+
+      // // Initialize
+      // loadEmployees();
+      // renderEmployees();
+      // updateSummary();
