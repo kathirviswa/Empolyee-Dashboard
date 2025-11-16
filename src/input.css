@@ -31,7 +31,7 @@ body {
 }
 
 .btn-primary {
-    background-color: white;
+    background-color: rgb(255, 255, 255);
     color: #667eea;
     border: none;
     padding: 12px 24px;
@@ -61,7 +61,7 @@ body {
 }
 
 .btn-secondary:hover {
-    background-color: #cbd5e0;
+    background-color: red;
 }
 .summary-card {
     background: white;

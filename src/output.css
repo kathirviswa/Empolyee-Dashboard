@@ -10,8 +10,10 @@
     --color-red-400: oklch(70.4% 0.191 22.216);
     --color-red-500: oklch(63.7% 0.237 25.331);
     --color-red-600: oklch(57.7% 0.245 27.325);
+    --color-amber-50: oklch(98.7% 0.022 95.277);
     --color-yellow-400: oklch(85.2% 0.199 91.936);
     --color-yellow-500: oklch(79.5% 0.184 86.047);
+    --color-green-500: oklch(72.3% 0.219 149.579);
     --color-blue-500: oklch(62.3% 0.214 259.815);
     --color-blue-700: oklch(48.8% 0.243 264.376);
     --color-gray-50: oklch(98.5% 0.002 247.839);
@@ -355,6 +357,9 @@
   .bg-gray-100 {
     background-color: var(--color-gray-100);
   }
+  .bg-green-500 {
+    background-color: var(--color-green-500);
+  }
   .bg-red-500 {
     background-color: var(--color-red-500);
   }
@@ -427,6 +432,9 @@
     --tw-font-weight: var(--font-weight-semibold);
     font-weight: var(--font-weight-semibold);
   }
+  .text-amber-50 {
+    color: var(--color-amber-50);
+  }
   .text-blue-500 {
     color: var(--color-blue-500);
   }
@@ -441,6 +449,9 @@
   }
   .text-gray-800 {
     color: var(--color-gray-800);
+  }
+  .text-green-500 {
+    color: var(--color-green-500);
   }
   .text-red-400 {
     color: var(--color-red-400);
@@ -584,7 +595,7 @@ body {
   align-items: center;
 }
 .btn-primary {
-  background-color: white;
+  background-color: rgb(255, 255, 255);
   color: #667eea;
   border: none;
   padding: 12px 24px;
@@ -611,7 +622,7 @@ body {
   transition: all 0.3s ease;
 }
 .btn-secondary:hover {
-  background-color: #cbd5e0;
+  background-color: red;
 }
 .summary-card {
   background: white;

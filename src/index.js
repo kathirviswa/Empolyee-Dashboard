@@ -1,7 +1,7 @@
 let employees = [];
-    let editingEmployeeId = null;
+let editingEmployeeId = null;
 
-      const elements = {
+    const elements = {
         modal: document.getElementById('employeeModal'),
         form: document.getElementById('employeeForm'),
         employeeList: document.getElementById('employeeList'),
@@ -18,7 +18,6 @@ let employees = [];
         phone: document.getElementById('phone'),
         designation: document.getElementById('designation'),
         joiningDate: document.getElementById('joiningDate'),
-        
       };
   // save our employees to local storage to store employee data ..
     //Saves employees array to local storage as a string.
@@ -36,7 +35,7 @@ let employees = [];
         document.getElementById('itCount').textContent = employees.filter(e => e.department === 'IT').length;
         document.getElementById('financeCount').textContent = employees.filter(e => e.department === 'Finance').length;
         document.getElementById('adminCount').textContent = employees.filter(e => e.department === 'Admin').length;
-        document.getElementById('totalCount').textContent = totalCount = employees.length;
+        document.getElementById('totalCount').textContent = totalCount = employees.length; 
       }
          //Search Employees
       function renderEmployees() {
@@ -56,7 +55,7 @@ let employees = [];
           elements.employeeList.innerHTML = '<p class="text-center text-lg font-bold text-red-400 mt-6">No employees found.</p>';
           return;
         }
-           // DISPLAY EMPLOYEES
+    // DISPLAY EMPLOYEES
         elements.employeeList.innerHTML = filtered.map(emp => `
           <div class="bg-white rounded-xl shadow p-4">
             <div class="flex justify-between items-center">
@@ -107,11 +106,9 @@ let employees = [];
         elements.phone.value = emp.phone;
         elements.designation.value = emp.designation;
         elements.joiningDate.value = emp.joiningDate;
-      
-       
         openModal(true);
       }
-
+      // update employee
       function updateEmployee(data) {
         const index = employees.findIndex(e => e.id === editingEmployeeId);
         if (employees.findIndex !== -1) {
@@ -122,6 +119,7 @@ let employees = [];
           closeModal();
         }
       }
+      // delete employee
       function deleteEmployee(id) {
         if (confirm('Delete this employee?')) {
           employees = employees.filter(e => e.id !== id);
