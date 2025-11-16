@@ -8,6 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body class="bg-gray-100">
+    <!-- MAIN CONTENT START -->
     <div class="flex min-h-screen">
       <!-- Mobile Menu Button -->
       <button id="menuBtn"
@@ -82,7 +83,7 @@
               <p Id="hrCount"class="summary-count text-gray-600 font-semibold text-2xl">0</p>
             </div>
             <div class="summary-card bg-white rounded-lg shadow p-6">
-              <h3 class="  text-lg font-semibold text-gray-800 mb-2"> IT Department</h3>
+              <h3 class="text-lg font-semibold text-gray-800 mb-2"> IT Department</h3>
               <p id="itCount" class="summary-count text-gray-600 font-semibold text-2xl">0</p>
             </div>
             <div class="summary-card bg-white rounded-lg shadow p-6">
@@ -94,6 +95,11 @@
               <p id="adminCount" class="summary-count text-gray-600 font-semibold text-2xl">0</p>
             </div>
 
+          <div class="summary-card bg-white rounded-lg shadow p-6">
+             <h3 class="text-lg font-semibold text-gray-800 mb-2">Total Employees</h3>
+            <p id="totalCount" class="summary-count text-gray-600 font-semibold text-2xl">0</p>
+            </div>
+        
           </div>
         </div>
 
@@ -155,7 +161,7 @@
 
                 <div class="form-group">
                     <label for="phone">Phone Number *</label>
-                    <input type="tel" id="phone" pattern="[0-9]{10}" maxlength="10" placeholder="Enter ">
+                    <input type="tel" id="phone" pattern="[0-9]{10}" maxlength="10">
                     <small>Enter 10 digit phone number</small>
                 </div>
 
@@ -176,8 +182,6 @@
             </form>
         </div>
     </div>
-
-
 
 
 

@@ -18,9 +18,8 @@ let employees = [];
         phone: document.getElementById('phone'),
         designation: document.getElementById('designation'),
         joiningDate: document.getElementById('joiningDate'),
-       
       };
-    // save our employees to local storage to store employee data ..
+  // save our employees to local storage to store employee data ..
     //Saves employees array to local storage as a string.
     // to store employee data object to string
       function saveEmployees() {
@@ -36,8 +35,9 @@ let employees = [];
         document.getElementById('itCount').textContent = employees.filter(e => e.department === 'IT').length;
         document.getElementById('financeCount').textContent = employees.filter(e => e.department === 'Finance').length;
         document.getElementById('adminCount').textContent = employees.filter(e => e.department === 'Admin').length;
+        document.getElementById('totalCount').textContent = totalCount = employees.length;
       }
-
+         //Search Employees
       function renderEmployees() {
         const searchTerm = elements.searchInput.value.toLowerCase();
         const filterDept = elements.departmentFilter.value;
@@ -46,17 +46,16 @@ let employees = [];
           const matchesSearch =
             emp.name.toLowerCase().includes(searchTerm) ||
             emp.department.toLowerCase().includes(searchTerm); 
-    
+      
           const matchesDept = !filterDept || emp.department === filterDept;
           return matchesSearch && matchesDept;
- 
         });
-
+   // no employees found
         if (filtered.length === 0) {
-          elements.employeeList.innerHTML = '<p class="text-center text-gray-500 mt-6">No employees found.</p>';
+          elements.employeeList.innerHTML = '<p class="text-center text-lg font-bold text-red-400 mt-6">No employees found.</p>';
           return;
         }
-
+           // DISPLAY EMPLOYEES
         elements.employeeList.innerHTML = filtered.map(emp => `
           <div class="bg-white rounded-xl shadow p-4">
             <div class="flex justify-between items-center">
@@ -72,7 +71,6 @@ let employees = [];
             <p class="mt-2 text-sm text-gray-500">📧 ${emp.email}</p>
             <p class="text-md text-gray-500">📞 ${emp.phone}</p>
             <p class="text-md text-gray-500">📅 ${emp.joiningDate}</p>
-
           </div>
         `).join('');
       }
@@ -89,7 +87,7 @@ let employees = [];
         elements.form.reset();
         editingEmployeeId = null;
       }
-
+        //add employee
       function addEmployee(data) {
         employees.push({ id: Date.now().toString(), ...data });
         saveEmployees();
@@ -97,7 +95,7 @@ let employees = [];
         updateSummary();
         closeModal();
       }
-
+     // edit employee
       function editEmployee(id) {
         const emp = employees.find(e => e.id === id);
         if (!emp) return;
@@ -108,13 +106,13 @@ let employees = [];
         elements.phone.value = emp.phone;
         elements.designation.value = emp.designation;
         elements.joiningDate.value = emp.joiningDate;
-    
+       
         openModal(true);
       }
 
       function updateEmployee(data) {
         const index = employees.findIndex(e => e.id === editingEmployeeId);
-        if (index !== -1) {
+        if (employees.findIndex !== -1) {
           employees[index] = { id: editingEmployeeId, ...data };
           saveEmployees();
           renderEmployees();
