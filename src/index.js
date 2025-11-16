@@ -18,6 +18,7 @@ let employees = [];
         phone: document.getElementById('phone'),
         designation: document.getElementById('designation'),
         joiningDate: document.getElementById('joiningDate'),
+        
       };
   // save our employees to local storage to store employee data ..
     //Saves employees array to local storage as a string.
@@ -106,6 +107,7 @@ let employees = [];
         elements.phone.value = emp.phone;
         elements.designation.value = emp.designation;
         elements.joiningDate.value = emp.joiningDate;
+      
        
         openModal(true);
       }
