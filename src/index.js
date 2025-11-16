@@ -17,12 +17,14 @@ let employees = [];
         email: document.getElementById('email'),
         phone: document.getElementById('phone'),
         designation: document.getElementById('designation'),
-        joiningDate: document.getElementById('joiningDate')
+        joiningDate: document.getElementById('joiningDate'),
+       
       };
     // save our employees to local storage to store employee data ..
+    //Saves employees array to local storage as a string.
     // to store employee data object to string
       function saveEmployees() {
-        localStorage.setItem('employees', JSON.stringify(employees));
+        localStorage.setItem('employees', JSON.stringify(employees)); 
       }
    //  load employees to display string to object in JSON.parse method to use 
       function loadEmployees() {
@@ -43,11 +45,11 @@ let employees = [];
         const filtered = employees.filter(emp => {
           const matchesSearch =
             emp.name.toLowerCase().includes(searchTerm) ||
-            emp.department.toLowerCase().includes(searchTerm) ||
-            emp.email.toLowerCase().includes(searchTerm);
+            emp.department.toLowerCase().includes(searchTerm); 
+    
           const matchesDept = !filterDept || emp.department === filterDept;
           return matchesSearch && matchesDept;
-          
+ 
         });
 
         if (filtered.length === 0) {
@@ -70,6 +72,7 @@ let employees = [];
             <p class="mt-2 text-sm text-gray-500">📧 ${emp.email}</p>
             <p class="text-md text-gray-500">📞 ${emp.phone}</p>
             <p class="text-md text-gray-500">📅 ${emp.joiningDate}</p>
+
           </div>
         `).join('');
       }
@@ -105,6 +108,7 @@ let employees = [];
         elements.phone.value = emp.phone;
         elements.designation.value = emp.designation;
         elements.joiningDate.value = emp.joiningDate;
+    
         openModal(true);
       }
 
@@ -140,7 +144,7 @@ let employees = [];
           email: elements.email.value,
           phone: elements.phone.value,
           designation: elements.designation.value,
-          joiningDate: elements.joiningDate.value
+          joiningDate: elements.joiningDate.value,
         };
         if (editingEmployeeId) updateEmployee(data);
         else addEmployee(data);
@@ -150,10 +154,7 @@ let employees = [];
       elements.searchInput.addEventListener('input', renderEmployees);
       elements.departmentFilter.addEventListener('change', renderEmployees);
 
-
-
-
-      // // Initialize
-      // loadEmployees();
-      // renderEmployees();
-      // updateSummary();
+      // Initialize
+      loadEmployees();
+      renderEmployees();
+      updateSummary();

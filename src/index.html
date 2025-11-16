@@ -91,8 +91,9 @@
             </div>
              <div class="summary-card bg-white rounded-lg shadow p-6">
               <h3 class="text-lg font-semibold text-gray-800 mb-2">Admin Department</h3>
-              <p d="adminCount" class="summary-count text-gray-600 font-semibold text-2xl">0</p>
+              <p id="adminCount" class="summary-count text-gray-600 font-semibold text-2xl">0</p>
             </div>
+
           </div>
         </div>
 
@@ -108,6 +109,7 @@
                     <option value="IT">IT</option>
                     <option value="Finance">Finance</option>
                     <option value="Admin">Admin</option>
+
                 </select>
             </div>
         </section>
@@ -123,18 +125,18 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h2 id="modalTitle">Add Employee</h2>
-                <button class="close-btn" id="closeModal">&times;</button>
+                <button class="close-btn" id="closeModal"> &times;</button>
              </div>
+
             <!-- form sec -->
             <form id= "employeeForm" class="space-y-3">
                 <input type="hidden" id="employeeId">
                 <!-- form section start -->
                 <div class="form-group">
                     <label for="employeeName">Employee Name *</label>
-                    <input type="text" id="employeeName" required    
-                    pattern="^[A-Za-z\s]+$" title="Name should only contain letters and spaces">
+                    <input type="text" id="employeeName" pattern="^[A-Za-z\s]+$" required>
                 </div>
-
+                  <!-- form Category section -->
                 <div class="form-group">
                     <label for="department">Department *</label>
                     <select id="department" required>
@@ -145,7 +147,7 @@
                         <option value="Admin">Admin</option>
                     </select>
                 </div>
-
+                  
                 <div class="form-group">
                     <label for="email">Email *</label>
                     <input type="email" id="email" required>
@@ -153,7 +155,7 @@
 
                 <div class="form-group">
                     <label for="phone">Phone Number *</label>
-                    <input type="tel" id="phone" pattern="[0-9]{10}" maxlength="10" required>
+                    <input type="tel" id="phone" pattern="[0-9]{10}" maxlength="10" placeholder="Enter ">
                     <small>Enter 10 digit phone number</small>
                 </div>
 
@@ -174,7 +176,6 @@
             </form>
         </div>
     </div>
-
 
 
 
