@@ -107,6 +107,7 @@ let editingEmployeeId = null;
         elements.phone.value = emp.phone;
         elements.designation.value = emp.designation;
         elements.joiningDate.value = emp.joiningDate;
+        
         openModal(true);
       }
       // update employee
