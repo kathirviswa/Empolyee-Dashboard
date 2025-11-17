@@ -17,17 +17,18 @@ let editingEmployeeId = null;
         email: document.getElementById('email'),
         phone: document.getElementById('phone'),
         designation: document.getElementById('designation'),
-        joiningDate: document.getElementById('joiningDate'),
+        joiningDate: document.getElementById('joiningDate'),   
       };
   // save our employees to local storage to store employee data ..
     //Saves employees array to local storage as a string.
-    // to store employee data object to string
+    // to store employee data object to string 
       function saveEmployees() {
         localStorage.setItem('employees', JSON.stringify(employees)); 
       }
    //  load employees to display string to object in JSON.parse method to use 
       function loadEmployees() {
         employees = JSON.parse(localStorage.getItem('employees') || '[]');
+        
       }
       // summary count update
       function updateSummary() {
@@ -35,7 +36,7 @@ let editingEmployeeId = null;
         document.getElementById('itCount').textContent = employees.filter(e => e.department === 'IT').length;
         document.getElementById('financeCount').textContent = employees.filter(e => e.department === 'Finance').length;
         document.getElementById('adminCount').textContent = employees.filter(e => e.department === 'Admin').length;
-        document.getElementById('totalCount').textContent = totalCount = employees.length; 
+  d
       }
          //Search Employees
       function renderEmployees() {
@@ -144,6 +145,8 @@ let editingEmployeeId = null;
           designation: elements.designation.value,
           joiningDate: elements.joiningDate.value,
         };
+
+      
         if (editingEmployeeId) updateEmployee(data);
         else addEmployee(data);
          closeModal();
