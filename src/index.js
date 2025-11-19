@@ -18,6 +18,8 @@ let editingEmployeeId = null;
         phone: document.getElementById('phone'),
         designation: document.getElementById('designation'),
         joiningDate: document.getElementById('joiningDate'),   
+        age : document.getElementById('age'),
+        dateofbirth: document.getElementById('dateofbirth'),
       };
   // save our employees to local storage to store employee data ..
     //Saves employees array to local storage as a string.
@@ -72,6 +74,8 @@ let editingEmployeeId = null;
             <p class="mt-2 text-sm text-gray-500">📧 ${emp.email}</p>
             <p class="text-md text-gray-500">📞 ${emp.phone}</p>
             <p class="text-md text-gray-500">📅 ${emp.joiningDate}</p>
+            <p class="text-md text-gray-500">🎈 ${emp.age}</p>
+            <p class="text-md text-gray-500">🎂 ${emp.dateofbirth}</p>
           </div>
         `).join('');
       }
@@ -107,6 +111,8 @@ let editingEmployeeId = null;
         elements.phone.value = emp.phone;
         elements.designation.value = emp.designation;
         elements.joiningDate.value = emp.joiningDate;
+        elements.age.value =emp.age;
+        elements.dateofbirth.value =emp.dateofbirth;
         
         openModal(true);
       }
@@ -145,6 +151,8 @@ let editingEmployeeId = null;
           phone: elements.phone.value,
           designation: elements.designation.value,
           joiningDate: elements.joiningDate.value,
+          age:elements.age.value,
+          dateofbirth:elements.dateofbirth.value
         };
 
       
